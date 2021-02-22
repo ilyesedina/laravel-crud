@@ -14,7 +14,8 @@ class ToDoController extends Controller
      */
     public function index()
     {
-        //
+        $todolist = Todo::latest()->paginate(5);
+        return view('todos.index', compact('todolist'));//->with(request()->input('page'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ToDoController extends Controller
      */
     public function create()
     {
-        //
+        return view('todos.create');
     }
 
     /**
@@ -35,7 +36,16 @@ class ToDoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate the input
+        $request->validate([
+            'name' => 'required',
+            'detail' => 'required'
+        ]);
+        //create new to do lists in the database
+        Todo::create($request->all());
+
+        //redirect the user and send friendly message
+        return redirect()->route('todos.index')->with('success','Task created successfuly');
     }
 
     /**
@@ -46,7 +56,7 @@ class ToDoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        return view('todos.show', compact('todo'));
     }
 
     /**
@@ -57,7 +67,7 @@ class ToDoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        //
+        return view('todos.edit', compact('todo'));
     }
 
     /**
@@ -69,7 +79,16 @@ class ToDoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        //validate the input
+        $request->validate([
+            'name' => 'required',
+            'detail' => 'required'
+        ]);
+        //create new to do lists in the database
+        $todo->update($request->all());
+
+        //redirect the user and send friendly message
+        return redirect()->route('todos.index')->with('success','Task updated successfuly');
     }
 
     /**
@@ -80,6 +99,9 @@ class ToDoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        //delete the task
+        $todo->delete();
+        //redirect the user and display success message
+        return redirect()->route('todos.index')->with('success','Task deleted successfuly');
     }
 }

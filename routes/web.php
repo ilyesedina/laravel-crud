@@ -18,4 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('todolist', ToDoController::class);
+Route::resource('todos', ToDoController::class);
+
+//Get
+//Post
+//Put
+//Delete
