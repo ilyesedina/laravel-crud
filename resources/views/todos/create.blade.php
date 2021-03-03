@@ -1,4 +1,4 @@
-@extends('todolist.layout')
+@extends('todos.layout')
 
 @section('content')
 
@@ -8,7 +8,7 @@
             <h2>Add new task to your to do list</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('todolist.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('todos.index') }}"> Back</a>
         </div>
     </div>
 </div>
